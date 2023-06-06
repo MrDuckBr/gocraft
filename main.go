@@ -76,7 +76,7 @@ func NewGame(w, h int) (*Game, error) {
 		game *Game
 	)
 	game = new(Game)
-	game.item = availableItems[0]
+	game.item = availableItems[5] //item que inicia na mao
 
 	mainthread.Call(func() {
 		win := initGL(w, h)
@@ -129,9 +129,11 @@ func (g *Game) dirtyBlock(id Vec3) {
 	}
 }
 
+// Aqui e o click do mouse
 func (g *Game) onMouseButtonCallback(win *glfw.Window, button glfw.MouseButton, action glfw.Action, mod glfw.ModifierKey) {
+	fmt.Println("estou clicando com o mouse")
 	if !g.exclusiveMouse {
-		g.setExclusiveMouse(true)
+		g.setExclusiveMouse(true) // seta o mouse como exclusivo
 		return
 	}
 	head := NearBlock(g.camera.Pos())
@@ -145,6 +147,7 @@ func (g *Game) onMouseButtonCallback(win *glfw.Window, button glfw.MouseButton, 
 		}
 	}
 	if button == glfw.MouseButton1 && action == glfw.Press {
+		fmt.Print("clicando com o mouse 1")
 		if block != nil {
 			g.world.UpdateBlock(*block, 0)
 			g.dirtyBlock(*block)
@@ -193,6 +196,8 @@ func (g *Game) onKeyCallback(win *glfw.Window, key glfw.Key, scancode int, actio
 		}
 		g.item = availableItems[g.itemidx]
 		g.blockRender.UpdateItem(g.item)
+	case glfw.KeyT:
+		fmt.Println("Texto")
 	}
 }
 

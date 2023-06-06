@@ -475,7 +475,7 @@ func (m *Mesh) Faces() int {
 	return m.faces
 }
 
-func (m *Mesh) Draw() {
+func (m *Mesh) Draw() { //desenha os triangulos
 	if m.vao != 0 {
 		gl.BindVertexArray(m.vao)
 		gl.DrawArrays(gl.TRIANGLES, 0, int32(m.faces)*6)
@@ -577,6 +577,7 @@ func NewLineRender() (*LineRender, error) {
 			return
 		}
 		r.cross = makeCross(r.shader)
+
 	})
 	if err != nil {
 		return nil, err
@@ -592,7 +593,7 @@ func (r *LineRender) drawCross() {
 	r.cross.Draw(project.Mul4(model))
 }
 
-func (r *LineRender) drawWireFrame(mat mgl32.Mat4) {
+func (r *LineRender) drawWireFrame(mat mgl32.Mat4) { // borda do bloco
 	var vertices []float32
 	block, _ := game.world.HitTest(game.camera.Pos(), game.camera.Front())
 	if block == nil {
@@ -640,9 +641,12 @@ func (r *LineRender) Draw() {
 	r.shader.End()
 }
 
-func makeCross(shader *glhf.Shader) *Lines {
+func makeCross(shader *glhf.Shader) *Lines { // faz a mira no meio da tela
 	return NewLines(shader, []float32{
 		-0.5, 0, 0, 0.5, 0, 0,
 		0, -0.5, 0, 0, 0.5, 0,
 	})
+}
+
+type hud struct {
 }

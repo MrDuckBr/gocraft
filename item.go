@@ -60,6 +60,7 @@ func (h *ItemHub) Texture(w int) *BlockTexture {
 	return t
 }
 
+// Carrega as texturas com base na imagem da linha 71
 func LoadTextureDesc() error {
 	for w, f := range itemDesc {
 		tex.AddTexture(w, f[0], f[1], f[2], f[3], f[4], f[5])
